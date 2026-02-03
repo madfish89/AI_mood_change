@@ -25,6 +25,7 @@ const inputEl = document.getElementById("input");
 const sendBtn = document.getElementById("send");
 const chatEl = document.getElementById("chat-container");
 const statusEl = document.getElementById("status");
+const clear = document.getElementById("clear");
 
 let messages = [];
 
