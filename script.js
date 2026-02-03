@@ -1,6 +1,6 @@
 const MODEL = "llama3.1:8b";
 const OLLAMA_URL = "http://localhost:11434/api/generate";
-const TEMPERATURE = 0.8;
+const TEMPERATURE = 0.75;
 const MAX_TOKENS = 5000;
 const REQUEST_TIMEOUT = 20000;
 
@@ -71,7 +71,7 @@ async function askAI(userMessage) {
         model: MODEL,
         messages: fullMessages,
         stream: false,
-        temperature: 0.75,
+        temperature: TEMPERATURE,
         top_p: 0.9,
         top_k: 40,
         options: {
