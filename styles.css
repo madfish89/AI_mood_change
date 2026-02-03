@@ -305,7 +305,9 @@ body {
   background-color: var(--bg) ;
   scale: 200%;
   cursor: pointer;
+  padding: 0px, 0px;
 }
 #clear:hover{
   scale: 220%;
+  padding: 0px, 0px;
 }
