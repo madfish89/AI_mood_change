@@ -1,7 +1,7 @@
 const MODEL = "llama3.1:8b";
 const OLLAMA_URL = "http://localhost:11434/api/generate";
 const TEMPERATURE = 0.7;
-const MAX_TOKENS = 5000;
+const MAX_TOKENS = 2000;
 const REQUEST_TIMEOUT = 15000;
 
 const moodSelect = document.getElementById("mood");
