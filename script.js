@@ -42,14 +42,13 @@ function addMessage(role, content) {
 async function askAI(userMessage) {
   if (userMessage.trim().length < 2) return;
 
-
   addMessage("user", userMessage);
   inputEl.value = "";
 
   const loadingEl = document.getElementById("loading");
   if (loadingEl) {
     chatEl.appendChild(loadingEl);
-    loadingEl.style.display = "block"; 
+    loadingEl.style.display = "block";
   }
 
   statusEl.textContent = "Thinking...";
@@ -57,21 +56,31 @@ async function askAI(userMessage) {
   inputEl.disabled = true;
 
   try {
-    const response = await fetch(OLLAMA_URL, {
+    const fullMessages = [
+      {
+        role: "system",
+        content: personalities[moodSelect.value] || personalities.normal
+      },
+      ...messages
+    ];
+
+    const response = await fetch(OLLAMA_URL.replace("/generate", "/chat"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         model: MODEL,
-        prompt: userMessage,
-        system: personalities[moodSelect.value] || personalities.normal,
+        messages: fullMessages,
         stream: false,
-        temperature: TEMPERATURE,
+        temperature: 0.75,
+        top_p: 0.9,
+        top_k: 40,
         options: {
+          num_ctx: 4096,
           num_predict: MAX_TOKENS,
-          stop: ["\n\n\n", "User:", "Assistant:"],
-        },
+          num_thread: 6
+        }
       }),
-      signal: AbortSignal.timeout(REQUEST_TIMEOUT),
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT)
     });
 
     if (!response.ok) {
@@ -79,38 +88,33 @@ async function askAI(userMessage) {
     }
 
     const data = await response.json();
-    const answer = (data.response || "").trim();
+    const answer = (data.message?.content || "").trim();
 
-    if (loadingEl) {
-      loadingEl.style.display = "none";
-    }
+    if (loadingEl) loadingEl.style.display = "none";
 
     if (answer) {
       addMessage("assistant", answer);
     } else {
-      addMessage("assistant", "(empty response from model)");
+      addMessage("assistant", "(empty response)");
     }
 
   } catch (err) {
     console.error("Ollama error:", err);
 
     let msg = "Error contacting Ollama";
-    if (err.name === "TimeoutError") msg = "Request timed out (15s)";
+    if (err.name === "TimeoutError") msg = "Request timed out";
     if (err.message.includes("fetch")) msg = "Cannot reach Ollama – is it running?";
 
     if (loadingEl) loadingEl.style.display = "none";
-
-    addMessage("assistant", `⚠️ ${msg}\n${err.message}`);
+    addMessage("assistant", `⚠️ ${msg}`);
   } finally {
     statusEl.textContent = "";
     sendBtn.disabled = false;
     inputEl.disabled = false;
     inputEl.focus();
-
     chatEl.scrollTop = chatEl.scrollHeight;
   }
 }
-
 sendBtn.addEventListener("click", () => {
   const text = inputEl.value.trim();
   if (text) askAI(text);
