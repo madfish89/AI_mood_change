@@ -302,12 +302,12 @@ body {
 }
 #clear{
   border: none;
-  background-color: var(--bg) ;
+  background:none;
   scale: 200%;
   cursor: pointer;
-  padding: 0px, 0px;
+  padding: 1px, 1px;
 }
 #clear:hover{
   scale: 220%;
-  padding: 0px, 0px;
+  padding: 1px, 1px;
 }
