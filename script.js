@@ -1,4 +1,4 @@
-const MODEL = "llama3.1:8b";
+const MODEL = "llama3.1:8b-instruct-q3_K_M";
 const OLLAMA_URL = "http://localhost:11434/api/generate";
 const TEMPERATURE = 0.75;
 const MAX_TOKENS = 5000;
