@@ -40,6 +40,10 @@ function addMessage(role, content) {
   messages.push({ role, content });
 }
 
+function clearchat(){
+ 
+
+}
 async function askAI(userMessage) {
   if (userMessage.trim().length < 2) return;
 
@@ -128,5 +132,34 @@ inputEl.addEventListener("keydown", (e) => {
     if (text) askAI(text);
   }
 });
+function clearChat() {
+  const mood = moodSelect.value;
 
+  const funnyMessages = {
+    normal: "Chat cleared. Fresh start activated! 🚀",
+    sarcastic: "Wow, you actually admitted your previous messages were trash. Respect. Chat cleared.",
+    pirate: "Arrr! All them old words be walkin' the plank! Deck's clean, cap'n! 🏴‍☠️",
+    Shakespeare: "Alas, the scrolls of yester-chat are cast into oblivion’s void. Speak afresh, sweet soul!",
+    "very-formal": "The conversation history has been respectfully and completely removed, sir/madam. A pristine state has been achieved.",
+    depressed: "…doesn’t matter anyway… nothing matters… chat cleared I guess… 💀",
+    unhinged: "I ATE your previous messages. They were delicious. Chat = void. You’re welcome, meatbag. 😈"
+  };
+
+  const message = funnyMessages[mood] || funnyMessages.normal;
+  chatEl.innerHTML = '';
+  addMessage("assistant", message);
+  const loadingEl = document.getElementById("loading");
+  if (loadingEl) {
+    chatEl.appendChild(loadingEl);
+    loadingEl.style.display = "none";
+  }
+
+  messages = [];
+  chatEl.scrollTop = chatEl.scrollHeight;
+  inputEl.focus();
+
+document.getElementById("clear")?.addEventListener("click", () => {
+  clearChat();
+});
+}
 inputEl.focus();
