@@ -141,7 +141,7 @@ function clearChat() {
     pirate: "Arrr! All them old words be walkin' the plank! Deck's clean, cap'n! 🏴‍☠️",
     Shakespeare: "Alas, the scrolls of yester-chat are cast into oblivion’s void. Speak afresh, sweet soul!",
     "very-formal": "The conversation history has been respectfully and completely removed, sir/madam. A pristine state has been achieved.",
-    depressed: "…doesn’t matter anyway… nothing matters… chat cleared I guess… 💀",
+    depressed: "…doesn't matter anyway… nothing matters… chat cleared I guess… 💀",
     unhinged: "I ATE your previous messages. They were delicious. Chat = void. You’re welcome, meatbag. 😈"
   };
 
