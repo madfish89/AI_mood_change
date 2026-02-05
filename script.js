@@ -25,7 +25,6 @@ const inputEl = document.getElementById("input");
 const sendBtn = document.getElementById("send");
 const chatEl = document.getElementById("chat-container");
 const statusEl = document.getElementById("status");
-const clear = document.getElementById("clear");
 
 let messages = [];
 
@@ -148,18 +147,11 @@ function clearChat() {
   const message = funnyMessages[mood] || funnyMessages.normal;
   chatEl.innerHTML = '';
   addMessage("assistant", message);
-  const loadingEl = document.getElementById("loading");
-  if (loadingEl) {
-    chatEl.appendChild(loadingEl);
-    loadingEl.style.display = "none";
-  }
-
   messages = [];
   chatEl.scrollTop = chatEl.scrollHeight;
   inputEl.focus();
-
+}
 document.getElementById("clear")?.addEventListener("click", () => {
   clearChat();
 });
-}
 inputEl.focus();

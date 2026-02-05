@@ -306,6 +306,7 @@ body {
   scale: 200%;
   cursor: pointer;
   padding: 1px, 1px;
+  transition: all, 0.3s;
 }
 #clear:hover{
   scale: 220%;
